@@ -20,7 +20,7 @@ export default function Login() {
 
     if (usuario) {
       // alert(`Login como ${usuario.tipo}`);
-      navigate("/"); // Redireciona para página inicial ou dashboard
+      navigate("/home"); // Redireciona para página inicial ou dashboard
     } else {
       setErro("E-mail ou senha inválidos.");
     }
