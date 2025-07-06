@@ -19,7 +19,7 @@ export default function Login() {
     );
 
     if (usuario) {
-      alert(`Login como ${usuario.tipo}`);
+      // alert(`Login como ${usuario.tipo}`);
       navigate("/"); // Redireciona para página inicial ou dashboard
     } else {
       setErro("E-mail ou senha inválidos.");
@@ -29,6 +29,7 @@ export default function Login() {
   return (
     <div style={styles.container}>
       <form onSubmit={handleLogin} style={styles.form}>
+        <h1 style={styles.marca}>Pagg.io</h1>
         <h2 style={styles.titulo}>Login</h2>
         {erro && <p style={styles.erro}>{erro}</p>}
         <input
@@ -64,7 +65,7 @@ export default function Login() {
 
 const styles = {
   container: {
-    backgroundColor: "#f5f6fa",
+    backgroundColor: "#5E60CE",
     height: "100vh",
     display: "flex",
     alignItems: "center",
@@ -79,9 +80,19 @@ const styles = {
     display: "flex",
     flexDirection: "column"
   },
+  marca: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 32,
+    fontWeight: "bold",
+    fontFamily: "sans-serif",
+    color: "#5E60CE", // nova cor
+    letterSpacing: 1
+  },
   titulo: {
     textAlign: "center",
-    marginBottom: 20
+    marginBottom: 20,
+    color: "#6C63FF"
   },
   input: {
     padding: 10,
@@ -91,7 +102,7 @@ const styles = {
   },
   botao: {
     padding: 10,
-    backgroundColor: "#4a90e2",
+    backgroundColor: "#6C63FF",
     color: "#fff",
     border: "none",
     borderRadius: 4,
@@ -101,7 +112,7 @@ const styles = {
   esqueci: {
     background: "none",
     border: "none",
-    color: "#4a90e2",
+    color: "#7F77FF",
     cursor: "pointer",
     fontSize: 14
   },
