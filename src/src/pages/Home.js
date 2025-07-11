@@ -5,6 +5,7 @@ import DashboardCard from "../components/DashboardCards";
 import PaymentIcon from "@mui/icons-material/Payment";
 import HistoryIcon from "@mui/icons-material/History";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import MetodoPagamento from "../components/MetodoPagamento";
 
 const drawerWidth = 240;
 
@@ -52,7 +53,7 @@ export default function Home() {
       case "pagamento":
         return <Typography variant="h4">Realizar Pagamento</Typography>;
       case "metodos":
-        return <Typography variant="h4">Métodos de Pagamento</Typography>;
+        return <MetodoPagamento />;
       default:
         return null;
     }
