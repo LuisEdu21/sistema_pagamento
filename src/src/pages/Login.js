@@ -7,9 +7,20 @@ export default function Login() {
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
 
+  // Usuários com UUID fixo
   const usuarios = [
-    { email: "cliente@teste.com", senha: "1234", tipo: "cliente" },
-    { email: "admin@teste.com", senha: "12345", tipo: "admin" }
+    {
+      email: "cliente@teste.com",
+      senha: "1234",
+      tipo: "cliente",
+      uuid: "11111111-1111-1111-1111-111111111111",
+    },
+    {
+      email: "admin@teste.com",
+      senha: "12345",
+      tipo: "admin",
+      uuid: "22222222-2222-2222-2222-222222222222",
+    },
   ];
 
   const handleLogin = (e) => {
@@ -19,8 +30,9 @@ export default function Login() {
     );
 
     if (usuario) {
-      // alert(`Login como ${usuario.tipo}`);
-      navigate("/home"); // Redireciona para página inicial ou dashboard
+      // Salva dados do usuário no localStorage para uso global
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+      navigate("/home");
     } else {
       setErro("E-mail ou senha inválidos.");
     }
@@ -69,7 +81,7 @@ const styles = {
     height: "100vh",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   form: {
     backgroundColor: "#fff",
@@ -78,7 +90,7 @@ const styles = {
     boxShadow: "0 0 10px rgba(0,0,0,0.1)",
     width: "300px",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   marca: {
     textAlign: "center",
@@ -86,19 +98,19 @@ const styles = {
     fontSize: 32,
     fontWeight: "bold",
     fontFamily: "sans-serif",
-    color: "#5E60CE", // nova cor
-    letterSpacing: 1
+    color: "#5E60CE",
+    letterSpacing: 1,
   },
   titulo: {
     textAlign: "center",
     marginBottom: 20,
-    color: "#6C63FF"
+    color: "#6C63FF",
   },
   input: {
     padding: 10,
     marginBottom: 15,
     borderRadius: 4,
-    border: "1px solid #ccc"
+    border: "1px solid #ccc",
   },
   botao: {
     padding: 10,
@@ -107,19 +119,19 @@ const styles = {
     border: "none",
     borderRadius: 4,
     cursor: "pointer",
-    marginBottom: 10
+    marginBottom: 10,
   },
   esqueci: {
     background: "none",
     border: "none",
     color: "#7F77FF",
     cursor: "pointer",
-    fontSize: 14
+    fontSize: 14,
   },
   erro: {
     color: "red",
     fontSize: 14,
     marginBottom: 10,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 };
