@@ -29,6 +29,7 @@ export default function MetodoPagamento() {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [metodoId, setMetodoId] = useState(null);
+  const [cardError, setCardError] = useState(false);
 
   const fetchMetodos = async () => {
     try {
@@ -48,10 +49,20 @@ export default function MetodoPagamento() {
   }, [userId]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "card_number") {
+      setCardError(value.length > 0 && value.length < 16);
+    }
   };
 
   const handleSubmit = async () => {
+    if (formData.card_number.length < 16) {
+      setCardError(true);
+      return;
+    }
+
     try {
       if (isEditing) {
         await axios.patch("http://localhost:8000/payment_method", formData, {
@@ -76,6 +87,7 @@ export default function MetodoPagamento() {
       });
       setIsEditing(false);
       setMetodoId(null);
+      setCardError(false);
       fetchMetodos();
     } catch (err) {
       console.error("Erro ao salvar método:", err);
@@ -88,10 +100,11 @@ export default function MetodoPagamento() {
       card_number: metodo.card_number,
       expiration_date: metodo.expiration_date,
       security_code: metodo.security_code,
-      payment_type: metodo.payment_type || "credit", // fallback se não tiver no backend
+      payment_type: metodo.payment_type || "credit",
     });
     setMetodoId(metodo.uuid);
     setIsEditing(true);
+    setCardError(false);
   };
 
   const handleDelete = async (uuid) => {
@@ -128,7 +141,10 @@ export default function MetodoPagamento() {
             fullWidth
             value={formData.card_number}
             onChange={handleChange}
-            inputProps={{ minLength: 16 }}
+            error={cardError}
+            helperText={
+              cardError ? "O número do cartão deve ter 16 dígitos." : ""
+            }
             required
           />
         </Grid>

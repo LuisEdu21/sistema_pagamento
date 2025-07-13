@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, CssBaseline, AppBar, Toolbar, Typography, Grid, Paper } from "@mui/material";
+import { Box, CssBaseline, AppBar, Toolbar, Typography, Grid } from "@mui/material";
 import Sidebar from "../components/Siderbar";
 import DashboardCard from "../components/DashboardCards";
 import PaymentIcon from "@mui/icons-material/Payment";
