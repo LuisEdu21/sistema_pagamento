@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
   Grid,
+  Alert,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -23,6 +24,7 @@ export default function Pagamento() {
     idMetodoPagamento: "",
   });
   const [mensagem, setMensagem] = useState(null);
+  const [alertSeverity, setAlertSeverity] = useState("info");
 
   const fetchMetodosPagamento = async () => {
     try {
@@ -47,14 +49,17 @@ export default function Pagamento() {
 
   const handlePagamento = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/pagamentos", {
+      const response = await axios.post('/api/pagamentos', {
         ...formData,
         idUsuario: userId,
       });
 
       const pagamento = response.data;
 
-      setMensagem(`Pagamento criado com ID: ${pagamento.id} (Status: ${pagamento.status})`);
+      // Aqui usa a mensagem que vem da API
+      setMensagem(pagamento.mensagem);
+      setAlertSeverity(pagamento.status === "aprovado" ? "success" : "warning");
+
       setFormData({
         valor: "",
         descricao: "",
@@ -63,6 +68,7 @@ export default function Pagamento() {
     } catch (err) {
       console.error("Erro ao criar pagamento:", err);
       setMensagem("Erro ao processar pagamento.");
+      setAlertSeverity("error");
     }
   };
 
@@ -121,9 +127,9 @@ export default function Pagamento() {
       </Grid>
 
       {mensagem && (
-        <Typography variant="subtitle1" color="primary">
+        <Alert severity={alertSeverity} sx={{ mt: 2 }}>
           {mensagem}
-        </Typography>
+        </Alert>
       )}
     </Box>
   );
