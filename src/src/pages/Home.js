@@ -6,6 +6,7 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import HistoryIcon from "@mui/icons-material/History";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MetodoPagamento from "../components/MetodoPagamento";
+import Pagamento from "../components/RealizarPagamentoModal";
 
 const drawerWidth = 240;
 
@@ -51,7 +52,7 @@ export default function Home() {
       case "historico":
         return <Typography variant="h4">Histórico de Pagamento</Typography>;
       case "pagamento":
-        return <Typography variant="h4">Realizar Pagamento</Typography>;
+        return <Pagamento />;
       case "metodos":
         return <MetodoPagamento />;
       default:
